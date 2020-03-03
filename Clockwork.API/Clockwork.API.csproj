@@ -25,5 +25,6 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\HomeController.cs" />
+    <Compile Remove="Controllers\AllTimeController.cs" />
   </ItemGroup>
 </Project>

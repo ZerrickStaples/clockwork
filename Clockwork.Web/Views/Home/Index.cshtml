@@ -3,7 +3,15 @@
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("currenttimeoutput").innerHTML = this.responseText;
+                var jasonObject = JSON.parse(this.responseText);
+                var returnVal = "";
+                returnVal += "<ul>";
+                returnVal += "<li>" + "Query ID: " + jasonObject.currentTimeQueryId + "</li>";
+                returnVal += "<li>" + "Time: " + jasonObject.time + "</li>";
+                returnVal += "<li>" + "IP: " + jasonObject.clientIp + "</li>";
+                returnVal += "</ul>";
+
+                document.getElementById("currenttimeoutput").innerHTML = returnVal;
             }
         };
 
@@ -16,14 +24,24 @@
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("alltimesoutput").innerHTML = this.responseText;
+                var jasonObject = JSON.parse(this.responseText);
+                console.log(CreateList(jasonObject));
             }
         }
-        xhttp.open("GET", "http://localhost:5000/api/alltime", true);
+        xhttp.open("GET", "http://localhost:5000/api/currenttime/all", true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send();
     }
 
+    function CreateList(items) {
+        var returnVal = "<ul>";
+        for (var i = 0; i < items.length - 1; i++) {
+            returnVal += "<li>";
+            returnVal += "<p>" + "Query ID: " + items[i].currentTimeQueryId + "</p>";
+            returnVal += "<p>" + "Time: " + items[i].time + "</p>";
+            returnVal += "</li>";
+        }
+    }
 </script>
 
 <h2>AWH Clockwork Project @ViewData["Version"] on @ViewData["Runtime"]!</h2>
@@ -31,8 +49,12 @@
 
 <button type="submit" onclick="GetCurrentTime()">Current Time</button>
 
-<p id="currenttimeoutput"></p>
+<div id="currenttimeoutput"></div>
 
 <button type="submit" onclick="GetAllTimes()">All Times</button>
 
-<p id=">alltimesoutput"></p>
+<div id="allTimesList">
+    <div id="allTimesListItems">
+
+    </div>
+</div>
