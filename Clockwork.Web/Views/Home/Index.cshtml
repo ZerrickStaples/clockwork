@@ -34,12 +34,18 @@
     }
 
     function CreateList(items) {
-        var returnVal = "<ul>";
-        for (var i = 0; i < items.length - 1; i++) {
-            returnVal += "<li>";
-            returnVal += "<p>" + "Query ID: " + items[i].currentTimeQueryId + "</p>";
-            returnVal += "<p>" + "Time: " + items[i].time + "</p>";
-            returnVal += "</li>";
+        var returnVal = "";
+        console.log(items);
+        for (var obj of items) {
+            console.log(obj);
+            returnVal += "<ol>";
+            returnVal += "<ul>";
+            returnVal += "<li>" + "Query ID: " + obj.currentTimeQueryId + "</li>";
+            returnVal += "<li>" + "Time: " + obj.time + "</li>";
+            returnVal += "<li>" + "IP: " + obj.clientIp + "</li>";
+            returnVal += "</ul>";
+            returnVal += "</ol>";
+            document.getElementById("allTimesListItems").innerHTML = returnVal;
         }
     }
 </script>
